@@ -1,78 +1,83 @@
 package com.KoreaIT.java.AM;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Main {
 	public static void main(String[] args) {
-		System.out.println("===시작===");
-
+		System.out.println("==프로그램 시작==");
 		Scanner sc = new Scanner(System.in);
-		int 마지막번호 = 0;
-
+		int lastArticleId = 0;
 		List<Article> articles = new ArrayList<>();
-
 		while (true) {
-			System.out.printf("명령어)");
-			String cmd = sc.nextLine();
-
+			System.out.printf("명령어) ");
+			String cmd = sc.nextLine().trim();
 			if (cmd.equals("exit")) {
 				break;
-
 			}
-
 			if (cmd.length() == 0) {
 				System.out.println("명령어를 입력해주세요");
 				continue;
 			}
-
 			if (cmd.equals("article write")) {
-				int 번호 = 마지막번호 + 1;
-				마지막번호 = 번호;
+				int id = lastArticleId + 1;
+				lastArticleId = id;
 				System.out.printf("제목 : ");
-				String ss = sc.nextLine();
+				String title = sc.nextLine();
 				System.out.printf("내용 : ");
-				String tt = sc.nextLine();
-
-				Article article = new Article(마지막번호, ss, tt);
+				String body = sc.nextLine();
+				Article article = new Article(id, title, body);
 				articles.add(article);
-
-				System.out.printf("%s번글이 생성되었습니다. \n", 마지막번호);
-
+				System.out.printf("%d번 글이 생성되었습니다.\n", id);
 			} else if (cmd.equals("article list")) {
 				if (articles.size() == 0) {
-					System.out.println("게시글이 없습니다.");
+					System.out.println("게시글이 없습니다");
 					continue;
-
 				}
-				System.out.println("번호    :     제목");
-				for (int i = articles.size() - 1; i >= 0 ; i--) {
+				System.out.println("번호    |    제목");
+				for (int i = articles.size() - 1; i >= 0; i--) {
 					Article article = articles.get(i);
-					System.out.printf("%d      :      %s\n", article.마지막번호 , article.tt);
+					System.out.printf("%4d    |    %s\n", article.id, article.title);
+				}
+			} else if (cmd.startsWith("article detail ")) {
+				System.out.printf("%d번 게시글은 존재하지 않습니다\n", 1);
+				String[] cmdBits = cmd.split(" ");
+
+				int id = Integer.parseInt(cmdBits[2]); // "2" -> 2
+
+				boolean found = false;
+
+				for (int i = 0; i < articles.size(); i++) { // 0~4
+					Article article = articles.get(i);
+
+					if (article.id == id) {
+						found = true;
+						break;
+					}
+				}
+
+				if (found == false) {
+					System.out.printf("%d번 게시물은 존재하지 않습니다.\n", id);
+					continue;
+				} else {
+					System.out.printf("%d번 게시물은 존재합니다\n", id);
 				}
 
 			} else {
+
 				System.out.println("존재하지 않는 명령어입니다");
 			}
-
 		}
-
 		sc.close();
-
-		System.out.println("===끝===");
+		System.out.println("==프로그램 끝==");
 	}
 }
-
 class Article {
-	int 마지막번호;
-	String ss;
-	String tt;
-
-	Article(int 마지막번호, String ss, String tt) {
-		this.마지막번호 = 마지막번호;
-		this.tt = tt;
-		this.ss = ss;
-
+	int id;
+	String title;
+	String body;
+	Article(int id, String title, String body) {
+		this.id = id;
+		this.title = title;
+		this.body = body;
 	}
 }
