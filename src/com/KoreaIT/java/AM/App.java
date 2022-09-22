@@ -58,7 +58,7 @@ public class App {
 				String searchKeyword = cmd.substring("article list".length());
 						
 				System.out.printf("검색어 : %s\n", searchKeyword);
-
+//				String?
 				List<Article> forPrintArticles = articles;
 				
 				System.out.println("번호    |    제목    |    조회");
