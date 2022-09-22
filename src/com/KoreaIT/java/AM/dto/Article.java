@@ -1,11 +1,11 @@
 package com.KoreaIT.java.AM.dto;
 
-class Article {
-	int id;
-	String regDate;
-	String title;
-	String body;
-	int hit;
+public class Article {
+	public int id;
+	public String regDate;
+	public String title;
+	public String body;
+	public int hit;
 
 	public Article(int id, String regDate, String title, String body) {
 		this(id, regDate, title, body, 0);
