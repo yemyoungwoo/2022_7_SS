@@ -23,6 +23,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 
 		int lastArticleId = 3;
+		int loginmemberid = 0;
 
 		while (true) {
 			System.out.printf("명령어) ");
@@ -34,8 +35,22 @@ public class App {
 			if (cmd.length() == 0) {
 				System.out.println("명령어를 입력해주세요");
 				continue;
+			}if (cmd.equals("member join")) {
+				int memberp = loginmemberid + 1;
+				loginmemberid = memberp;
+				
+				String regDate = Util.getDateStr();
+				System.out.printf("로그인 아이디 : ");
+				String loginId = sc.nextLine();
+				System.out.printf("로그인 비밀번호 : ");
+				String loginPw = sc.nextLine();
+				System.out.printf("비밀번호 확인 : ");
+				String loginPwc = sc.nextLine();
+				
+				System.out.printf("%d번 회원이 생성되었습니다.\n%s\n", memberp, regDate);
+
 			}
-			if (cmd.equals("article write")) {
+				else if (cmd.equals("article write")) {
 				int id = lastArticleId + 1;
 				lastArticleId = id;
 				String regDate = Util.getDateStr();
