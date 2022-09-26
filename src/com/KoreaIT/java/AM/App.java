@@ -54,18 +54,32 @@ public class App {
 					System.out.println("게시글이 없습니다");
 					continue;
 				}
-				
-				String searchKeyword = cmd.substring("article list".length());
-						
-				System.out.printf("검색어 : %s\n", searchKeyword);
-//				String?
 				List<Article> forPrintArticles = articles;
 				
-				System.out.println("번호    |    제목    |    조회");
-				for (int i = articles.size() - 1; i >= 0; i--) {
-					Article article = forPrintArticles.get(i);
-					System.out.printf("%4d    |    %s    |    %d\n", article.id, article.title, article.hit);
+				String searchKeyword = cmd.substring("article list".length()).trim();
+				if (searchKeyword.length() > 0) {
+				System.out.printf("검색어 : %s\n", searchKeyword);
+
+					forPrintArticles = new ArrayList<>();
+					
+					for (Article article : articles) {
+						if (article.title.contains(searchKeyword)) {
+							forPrintArticles.add(article);
+						}
+					}
+					if (forPrintArticles.size() == 0) {
+						System.out.println("검색결과가 없습니다.");
+						continue;
+					}
 				}
+				
+				System.out.println("번호    |    제목    |    날짜    |    조회");
+				for( int i = forPrintArticles.size() - 1; i >= 0; i--) {
+					Article article = forPrintArticles.get(i);
+					System.out.printf("%4d    |    %s    |    %s    |    %d\n", article.id, article.title, article.regDate, article.hit);
+				}
+					
+				
 			} else if (cmd.startsWith("article detail ")) {
 				String[] cmdBits = cmd.split(" ");
 
@@ -132,7 +146,7 @@ public class App {
 		System.out.println("==프로그램 끝==");
 	}
 
-	private static int getArticleIndexById(int id) {
+	private int getArticleIndexById(int id) {
 		int i = 0;
 		for (Article article : articles) {
 
@@ -144,7 +158,7 @@ public class App {
 		return -1;
 	}
 
-	private static Article getArticleById(int id) {
+	private Article getArticleById(int id) {
 		int index = getArticleIndexById(id);
 
 		if (index != -1) {
