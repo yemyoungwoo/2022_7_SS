@@ -1,10 +1,12 @@
 package com.KoreaIT.java.BAM.controller;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.KoreaIT.java.AM.Member;
+import com.KoreaIT.java.AM.dto.Member;
 import com.KoreaIT.java.AM.util.Util;
+
 public class MemberController extends Controller {
 	private Scanner sc;
 	private List<Member> members;
@@ -16,6 +18,7 @@ public class MemberController extends Controller {
 		this.sc = sc;
 		members = new ArrayList<>();
 	}
+
 	public void doAction(String cmd, String actionMethodName) {
 		this.cmd = cmd;
 		this.actionMethodName = actionMethodName;
@@ -104,6 +107,7 @@ public class MemberController extends Controller {
 		members.add(member);
 		System.out.printf("%d번 회원님 환영합니다\n", id);
 	}
+
 	private boolean isJoinableLoginId(String loginId) {
 		int index = getMemberIndexByLoginId(loginId);
 

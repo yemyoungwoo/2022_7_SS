@@ -175,5 +175,4 @@ public class ArticleController extends Controller {
 		articles.add(new Article(3, Util.getDateStr(), "제목3", "내용3", 33));
 	}
 
-
 }
