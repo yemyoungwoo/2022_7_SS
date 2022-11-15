@@ -9,7 +9,7 @@ import com.KoreaIT.java.AM.util.Util;
 
 public class MemberController extends Controller {
 	private Scanner sc;
-	private List<Member> members;
+	private static List<Member> members;
 	private String cmd;
 	private String actionMethodName;
 	private Member loginedMember;
@@ -128,6 +128,13 @@ public class MemberController extends Controller {
 		}
 
 		return -1;
+	}
+	public static void makeTestData() {
+		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
+
+		members.add(new Member(1, Util.getDateStr(), "test1", "test1", "김철수"));
+		members.add(new Member(2, Util.getDateStr(), "test2", "test2", "김영수"));
+		members.add(new Member(3, Util.getDateStr(), "test3", "test3", "김영희"));
 	}
 
 }
