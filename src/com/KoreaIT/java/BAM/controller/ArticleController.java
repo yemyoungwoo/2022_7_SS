@@ -111,7 +111,7 @@ public class ArticleController extends Controller {
 	private void doModify() {
 		String[] cmdBits = cmd.split(" ");
 
-		if (cmdBits.length == 2) {
+		if (cmdBits.length == 0) {
 			System.out.println("명령어를 확인해주세요");
 			return;
 		}
@@ -169,7 +169,6 @@ public class ArticleController extends Controller {
 
 	public void makeTestData() {
 		System.out.println("테스트를 위한 게시물 데이터를 생성합니다.");
-
 		articles.add(new Article(1, Util.getDateStr(), "제목1", "내용1", 11));
 		articles.add(new Article(2, Util.getDateStr(), "제목2", "내용2", 22));
 		articles.add(new Article(3, Util.getDateStr(), "제목3", "내용3", 33));
