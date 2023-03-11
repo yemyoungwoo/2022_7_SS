@@ -8,6 +8,7 @@ import com.KoreaIT.java.AM.dto.Article;
 import com.KoreaIT.java.AM.dto.Member;
 import com.KoreaIT.java.AM.util.Util;
 
+
 public class MemberController extends Controller {
 	private Scanner sc;
 	private static List<Member> members;
@@ -42,16 +43,27 @@ public class MemberController extends Controller {
 		}
 	}
 	private void showList() {
+		
+		
+		
 		if (members.size() == 0) {
 			System.out.println("회원이 없습니다");
 			return;
 		}
-		System.out.println("아이디 : ");
+		
+		System.out.println("아이디  - 이름 ");
 		List<Member> forPrintMembers = members;
 		for (int i = forPrintMembers.size() - 1; i >= 0; i--) {
 			Member member = forPrintMembers.get(i);
-			System.out.printf("%s\n", member.loginId);
+			System.out.printf("%s - %s\n", member.loginId, member.name);
 		}
+		
+		int m = 0;
+		List<Member> forSumMember = members; 
+		for(m = 0; m < forSumMember.size(); m++) {
+//			Member member = forPrintMembers.get(m); 이게 굳이 필요한가
+		}
+		System.out.printf("총 : %d명\n", m);
 	}
 	
 	private void doLogin() {

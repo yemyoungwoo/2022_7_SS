@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.KoreaIT.java.AM.dto.Article;
+import com.KoreaIT.java.AM.dto.Member;
 import com.KoreaIT.java.AM.util.Util;
 
 public class ArticleController extends Controller {
@@ -12,6 +13,7 @@ public class ArticleController extends Controller {
 	private List<Article> articles;
 	private String cmd;
 	private String actionMethodName;
+	private Member loginedMember;
 
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
@@ -110,10 +112,15 @@ public class ArticleController extends Controller {
 
 	private void doModify() {
 		String[] cmdBits = cmd.split(" ");
+		
+//		if (loginedMember.id == 0) {
+//			System.out.println("권한이 없습니다.");
+//		}
 
 		if (cmdBits.length == 0) {
 			System.out.println("명령어를 확인해주세요");
 			return;
+			
 		}
 		int id = Integer.parseInt(cmdBits[2]);
 		Article foundArticle = getArticleById(id);
