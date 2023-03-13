@@ -13,7 +13,6 @@ public class ArticleController extends Controller {
 	private List<Article> articles;
 	private String cmd;
 	private String actionMethodName;
-	private Member loginedMember;
 
 	public ArticleController(Scanner sc) {
 		this.sc = sc;
@@ -29,18 +28,35 @@ public class ArticleController extends Controller {
 		case "list":
 			showList();
 			break;
+		
 		case "write":
+			if(isLogined() == false) {
+				System.out.println("로그인이 필요합니다.");
+				break;
+			}
 			doWrite();
 			break;
+		
 		case "detail":
 			showDetail();
 			break;
+		
 		case "modify":
+			if(isLogined() == false) {
+				System.out.println("로그인이 필요합니다.");
+				break;
+			}
 			doModify();
 			break;
+		
 		case "delete":
+			if(isLogined() == false) {
+				System.out.println("로그인이 필요합니다.");
+				break;
+			}
 			doDelete();
 			break;
+		
 		default:
 			System.out.println("존재하지 않는 명령어입니다");
 			break;
@@ -48,7 +64,9 @@ public class ArticleController extends Controller {
 	}
 
 	private void doWrite() {
+		
 		int id = articles.size() + 1;
+		
 		String regDate = Util.getDateStr();
 		System.out.printf("제목 : ");
 		String title = sc.nextLine();
@@ -113,9 +131,6 @@ public class ArticleController extends Controller {
 	private void doModify() {
 		String[] cmdBits = cmd.split(" ");
 		
-//		if (loginedMember.id == 0) {
-//			System.out.println("권한이 없습니다.");
-//		}
 
 		if (cmdBits.length == 0) {
 			System.out.println("명령어를 확인해주세요");
