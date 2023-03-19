@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import com.KoreaIT.java.AM.dto.GmMember;
 import com.KoreaIT.java.AM.dto.Member;
 import com.KoreaIT.java.AM.util.Util;
 
 public class MemberController extends Controller {
 	private Scanner sc;
 	private static List<Member> members;
+	private static List<GmMember> gmmembers;
 	private String cmd;
 	private String actionMethodName;
 
@@ -21,6 +23,7 @@ public class MemberController extends Controller {
 	public void doAction(String cmd, String actionMethodName) {
 		this.cmd = cmd;
 		this.actionMethodName = actionMethodName;
+		
 		switch (actionMethodName) {
 		case "join":
 			doJoin();
@@ -30,8 +33,12 @@ public class MemberController extends Controller {
 			doLogin();
 			break;
 
+		case "gmlogin":
+			hdLogin();
+			break;
+
 		case "list":
-			if(isLogined() == false) {
+			if (isLogined() == false) {
 				System.out.println("로그인이 필요합니다");
 				break;
 			}
@@ -42,6 +49,66 @@ public class MemberController extends Controller {
 			System.out.println("존재하지 않는 명령어입니다");
 			break;
 		}
+	}
+
+//	private void hdLogin() {
+//		System.out.printf("로그인 아이디 : ");
+//		String loginId = sc.nextLine();
+//		System.out.printf("로그인 비밀번호 : ");
+//		String loginPw = sc.nextLine();
+//
+//		Member member = getMemberByLoginId(loginId);
+//
+//		if (member == null) {
+//			System.out.println("일치하는 회원이 없습니다");
+//			return;
+//		}
+//
+//		if (member.loginPw.equals(loginPw) == false) {
+//			System.out.println("비밀번호를 다시 입력해주세요");
+//			return;
+//		}
+//
+//		loginedMember = member;
+//		System.out.printf("로그인 성공! %s님 환영합니다.\n", loginedMember.name);
+//
+//	}
+
+	private void hdLogin() {
+		System.out.printf("운영자 로그인 아이디 : ");
+		String gmloginId = sc.nextLine();
+		System.out.printf("로그인 비밀번호 : ");
+		String gmloginPw = sc.nextLine();
+
+		GmMember member = getMemberByGmLoginId(gmloginId);
+		
+		if(member == null) {
+			System.out.println("일치하는 회원이 없습니다.");
+			
+		GmloginedMember = member;
+		System.out.printf("로그인 성공! %s님 환영합니다.\n", loginedMember.name);
+		}
+	}
+
+	private GmMember getMemberByGmLoginId(String gmloginId) {
+		int index = getMemberIndexByLoginGmId(gmloginId);
+
+		if (index == -1) {
+			return null;
+		}
+
+		return gmmembers.get(index);
+	}
+
+	private int getMemberIndexByLoginGmId(String gmloginId) {
+		int i = 0;
+		for (GmMember members : gmmembers) {
+			if (members.gmloginId.equals(gmloginId)) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
 	}
 
 	private void showList() {
@@ -71,12 +138,14 @@ public class MemberController extends Controller {
 	}
 
 	private void doLogin() {
+//		String gmloginId = null;
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
 		System.out.printf("로그인 비밀번호 : ");
 		String loginPw = sc.nextLine();
 
 		Member member = getMemberByLoginId(loginId);
+//		GmMember member1 = getMemberByGmLoginId(gmloginId);
 
 		if (member == null) {
 			System.out.println("일치하는 회원이 없습니다");
@@ -87,12 +156,14 @@ public class MemberController extends Controller {
 			System.out.println("비밀번호를 다시 입력해주세요");
 			return;
 		}
+//		if 	(member.loginId.equals(gmloginId) == false) {
+//			System.out.println("권한이 없습니다.");
+//			return;
+//		}
+			loginedMember = member;
+			System.out.printf("로그인 성공! %s님 환영합니다.\n", loginedMember.name);
 
-		loginedMember = member;
-		System.out.printf("로그인 성공! %s님 환영합니다.\n", loginedMember.name);
-
-	}
-
+		}
 	private Member getMemberByLoginId(String loginId) {
 		int index = getMemberIndexByLoginId(loginId);
 
@@ -167,9 +238,15 @@ public class MemberController extends Controller {
 
 	public static void makeTestData() {
 		System.out.println("테스트를 위한 회원 데이터를 생성합니다.");
-
 		members.add(new Member(1, Util.getDateStr(), "test1", "test1", "김철수"));
 		members.add(new Member(2, Util.getDateStr(), "test2", "test2", "김영수"));
 		members.add(new Member(3, Util.getDateStr(), "test3", "test3", "김영희"));
 	}
+//
+//	public static void hiddenId() {
+//		System.out.println("테스트를 위한 운영자 데이터를 생성합니다.");
+//		gmmembers.add(new GmMember(1, "GM1", "123", "운영자1"));
+//		gmmembers.add(new GmMember(2, "GM2", "123", "운영자2"));
+//		gmmembers.add(new GmMember(3, "GM3", "123", "운영자3"));
+//	}
 }

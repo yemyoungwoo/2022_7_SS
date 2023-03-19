@@ -21,6 +21,7 @@ public class App {
 
 		articleController.makeTestData();
 		memberController.makeTestData();
+//		memberController.hiddenId();
 		
 		while (true) {
 
