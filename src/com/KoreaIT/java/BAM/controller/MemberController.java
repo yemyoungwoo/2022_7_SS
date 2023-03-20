@@ -36,6 +36,10 @@ public class MemberController extends Controller {
 		case "gmlogin":
 			hdLogin();
 			break;
+			
+		case "logout":
+			doLogout();
+			break;
 
 		case "list":
 			if (isLogined() == false) {
@@ -73,6 +77,15 @@ public class MemberController extends Controller {
 //		System.out.printf("로그인 성공! %s님 환영합니다.\n", loginedMember.name);
 //
 //	}
+
+	private void doLogout() {
+		if (isLogined() == false) {
+			System.out.println("로그인 상태가 아닙니다");
+			return;
+		}
+		loginedMember = null;
+		System.out.println("로그아웃 되었습니다.");
+	}
 
 	private void hdLogin() {
 		System.out.printf("운영자 로그인 아이디 : ");
@@ -138,6 +151,10 @@ public class MemberController extends Controller {
 	}
 
 	private void doLogin() {
+		if(isLogined() == true) {
+			System.out.println("이미 로그인 상태입니다");
+			return;
+		}
 //		String gmloginId = null;
 		System.out.printf("로그인 아이디 : ");
 		String loginId = sc.nextLine();
