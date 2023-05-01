@@ -42,6 +42,7 @@ public class MemberController extends Controller {
 			break;
 
 		case "list":
+			
 			if(isGmLogined() == false) {
 				System.out.println("운영자가 권환이 아닙니다");
 				break;

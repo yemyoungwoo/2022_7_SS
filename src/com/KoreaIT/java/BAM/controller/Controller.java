@@ -14,6 +14,7 @@ public abstract class Controller {
 		return loginedMember != null;
 	}
 	
+	
 	public static boolean isGmLogined() {
 		return GmloginedMember != null;
 	}
